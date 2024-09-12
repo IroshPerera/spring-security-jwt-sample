@@ -1,7 +1,5 @@
 package com.webmotech.spring_security_jwt.config;
-
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +8,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -18,7 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +51,6 @@ public class EmailSender {
 
         System.out.println("Formatted Local Time: " + formattedTime);
 
-
         MimeMessage message = javaMailSender.createMimeMessage();
 
         message.setFrom(new InternetAddress(email));
@@ -68,7 +64,6 @@ public class EmailSender {
         message.setSubject(subject);
 
         javaMailSender.send(message);
-
 
     }
 
