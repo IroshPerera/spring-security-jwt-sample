@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Login Alert</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #555;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .highlight {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #777;
+            text-align: center;
+        }
+        .emoji {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>User Login Alert 🚨</h2>
+    <p>Dear Admin,</p>
+    <p>We wanted to inform you that a user has just logged in to the system. 🎉</p>
+    <p><span class="highlight">User Email:</span> <span class="emoji">📧</span> {userEmail}</p>
+    <p><span class="highlight">Login Time:</span> <span class="emoji">🕒</span> {loginTime}</p>
+    <p>Best regards,<br>Your System Team</p>
+    <div class="footer">
+        <p>This is an automated message. Please do not reply. 🤖</p>
+    </div>
+</div>
+</body>
+</html>

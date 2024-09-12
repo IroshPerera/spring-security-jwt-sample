@@ -1,6 +1,7 @@
 package com.webmotech.spring_security_jwt.controller;
 
 
+import com.webmotech.spring_security_jwt.config.EmailSender;
 import com.webmotech.spring_security_jwt.dto.JwtAuthResponse;
 import com.webmotech.spring_security_jwt.dto.SignIn;
 import com.webmotech.spring_security_jwt.dto.SignUp;
@@ -11,15 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
 
     private final UserService userService;
+    private final EmailSender emailSender;
 
     private final AuthenticationService authenticationService;
 
@@ -37,18 +36,27 @@ public class UserController {
         try {
             JwtAuthResponse jwtAuthResponse = authenticationService.signUp(signUp);
             return ResponseEntity.ok(jwtAuthResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("User Already Exists or Invalid Data \n Exception : " + e.getMessage());
         }
 
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<JwtAuthResponse> signIn(@RequestBody SignIn signIn,BindingResult bindingResult) {
+    public ResponseEntity<?> signIn(@RequestBody SignIn signIn, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
+
         }
-        return ResponseEntity.ok(authenticationService.signIn(signIn));
+        try {
+
+            ResponseEntity<JwtAuthResponse> ok = ResponseEntity.ok(authenticationService.signIn(signIn));
+
+            emailSender.sendHtmlMail("Login Alert", ok.getBody().getUserDTO().getEmail());
+            return ok;
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid Data \n Exception : " + e.getMessage());
+        }
     }
 
 
